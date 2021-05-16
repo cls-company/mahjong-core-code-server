@@ -6,6 +6,8 @@ PREFIX="deploy-code-server"
 
 mkdir -p $START_DIR
 
+git config --global url."https://$GITHUB_TOKEN:@github.com/".insteadOf "https://github.com/"
+
 # function to clone the git repo or add a user's first file if no repo was specified.
 project_init () {
     [ -z "${GIT_REPO}" ] && echo "[$PREFIX] No GIT_REPO specified" && echo "Example file. Have questions? Join us at https://community.coder.com" > $START_DIR/coder.txt || git clone $GIT_REPO $START_DIR
