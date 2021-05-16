@@ -1,6 +1,23 @@
 # Start from the code-server Debian base image
 FROM codercom/code-server:3.9.3 
 
+USER root
+
+# Node
+# Uncomment your target version
+# RUN curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+# RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+# RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN echo "NODE Version:" && node --version
+RUN echo "NPM Version:" && npm --version
+
+# ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+# ENV PATH=$PATH:/home/node/.npm-global/bin
+
+RUN npm install -g yarn
+
 USER coder
 
 # Apply VS Code settings
@@ -28,21 +45,6 @@ RUN code-server --install-extension esbenp.prettier-vscode
 
 # Install apt packages:
 # RUN sudo apt-get install -y ubuntu-make
-
-# Node
-# Uncomment your target version
-# RUN curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-RUN curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-# RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-# RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
-RUN sudo apt-get install -y nodejs
-RUN echo "NODE Version:" && node --version
-RUN echo "NPM Version:" && npm --version
-
-ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-ENV PATH=$PATH:/home/node/.npm-global/bin
-
-RUN npm install -g yarn
 
 # Copy files: 
 # COPY deploy-container/myTool /home/coder/myTool
