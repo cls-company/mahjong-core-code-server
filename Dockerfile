@@ -39,6 +39,9 @@ RUN sudo apt-get install -y nodejs
 RUN echo "NODE Version:" && node --version
 RUN echo "NPM Version:" && npm --version
 
+ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin # optionally if you want to run npm global bin without specifying path
+
 RUN npm install -g yarn
 
 # Copy files: 
