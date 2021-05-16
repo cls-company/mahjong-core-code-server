@@ -29,15 +29,15 @@ RUN code-server --install-extension esbenp.prettier-vscode
 # Install apt packages:
 # RUN sudo apt-get install -y ubuntu-make
 
-ENV NODE_VERSION=12.6.0
-RUN sudo apt-get install -y curl
-ENV NVM_DIR=/root/.nvm
-RUN mkdir ${NVM_DIR}
-RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
-RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
-RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
-RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
-ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+# Node
+# Uncomment your target version
+# RUN curl -fsSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+RUN curl -fsSL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+# RUN curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+# RUN curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+RUN sudo apt-get install -y nodejs
+RUN echo "NODE Version:" && node --version
+RUN echo "NPM Version:" && npm --version
 
 RUN npm install -g yarn
 
