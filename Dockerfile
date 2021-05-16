@@ -32,6 +32,7 @@ RUN code-server --install-extension esbenp.prettier-vscode
 ENV NODE_VERSION=12.6.0
 RUN sudo apt-get install -y curl
 ENV NVM_DIR=/root/.nvm
+RUN mkdir ${NVM_DIR}
 RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.34.0/install.sh | bash
 RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
